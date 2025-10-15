@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 화면 - 부산어린이대공원 실감형 사파리</title>
+    <link rel="stylesheet" href="styles/admin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-vr-cardboard"></i>
+                <span>부산어린이대공원</span>
+            </div>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li class="nav-item active" data-section="dashboard">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>대시보드</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-section="reservations">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>예약 관리</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-section="content">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-newspaper"></i>
+                        <span>콘텐츠 관리</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-section="notifications">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-bell"></i>
+                        <span>알림 발송</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-section="analytics">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>통계 분석</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-section="settings">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-cog"></i>
+                        <span>설정</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <div class="user-info">
+                <div class="user-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="user-details">
+                    <span class="user-name">관리자</span>
+                    <span class="user-role">시스템 관리자</span>
+                </div>
+            </div>
+            <button class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <header class="content-header">
+            <div class="header-left">
+                <button class="sidebar-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1 class="page-title">대시보드</h1>
+            </div>
+            <div class="header-right">
+                <div class="search-box">
+                    <input type="text" placeholder="검색...">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="notification-bell">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-count">3</span>
+                </div>
+                <div class="date-time" id="current-datetime"></div>
+            </div>
+        </header>
+
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="content-section active">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-calendar-day"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>오늘 예약</h3>
+                        <p class="stat-number">24</p>
+                        <span class="stat-change positive">+12%</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>총 방문자</h3>
+                        <p class="stat-number">1,247</p>
+                        <span class="stat-change positive">+8%</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-won-sign"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>오늘 매출</h3>
+                        <p class="stat-number">₩3,600,000</p>
+                        <span class="stat-change positive">+15%</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>평점</h3>
+                        <p class="stat-number">4.9</p>
+                        <span class="stat-change positive">+0.1</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3>예약 현황</h3>
+                        <div class="card-actions">
+                            <button class="btn btn-sm btn-primary">전체보기</button>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="reservation-list">
+                            <div class="reservation-item">
+                                <div class="reservation-info">
+                                    <h4>김기태</h4>
+                                    <p>2025.10.20 18:00</p>
+                                    <span class="status confirmed">확정</span>
+                                </div>
+                                <div class="reservation-actions">
+                                    <button class="btn btn-sm btn-outline">상세</button>
+                                </div>
+                            </div>
+                            
+                            <div class="reservation-item">
+                                <div class="reservation-info">
+                                    <h4>박민아</h4>
+                                    <p>2025.10.20 19:00</p>
+                                    <span class="status pending">대기</span>
+                                </div>
+                                <div class="reservation-actions">
+                                    <button class="btn btn-sm btn-outline">상세</button>
+                                </div>
+                            </div>
+                            
+                            <div class="reservation-item">
+                                <div class="reservation-info">
+                                    <h4>주토즈</h4>
+                                    <p>2024.10.20 20:00</p>
+                                    <span class="status confirmed">확정</span>
+                                </div>
+                                <div class="reservation-actions">
+                                    <button class="btn btn-sm btn-outline">상세</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3>시간대별 예약 현황</h3>
+                    </div>
+                    <div class="card-content">
+                        <canvas id="reservationChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3>최근 활동</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-calendar-plus"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <p>새로운 예약이 등록되었습니다</p>
+                                    <span class="activity-time">5분 전</span>
+                                </div>
+                            </div>
+                            
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-user-check"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <p>체험자가 도착했습니다</p>
+                                    <span class="activity-time">15분 전</span>
+                                </div>
+                            </div>
+                            
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-newspaper"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <p>새로운 뉴스가 등록되었습니다</p>
+                                    <span class="activity-time">1시간 전</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Reservations Section -->
+        <section id="reservations" class="content-section">
+            <div class="section-header">
+                <h2>예약 관리</h2>
+                <div class="section-actions">
+                    <div class="filter-group">
+                        <select class="filter-select">
+                            <option value="">전체 상태</option>
+                            <option value="confirmed">확정</option>
+                            <option value="pending">대기</option>
+                            <option value="cancelled">취소</option>
+                        </select>
+                        <input type="date" class="filter-date" id="reservation-date-filter">
+                        <button class="btn btn-primary">필터 적용</button>
+                    </div>
+                    <button class="btn btn-secondary">
+                        <i class="fas fa-download"></i>
+                        엑셀 다운로드
+                    </button>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>예약번호</th>
+                            <th>예약자명</th>
+                            <th>연락처</th>
+                            <th>예약일시</th>
+                            <th>인원</th>
+                            <th>상태</th>
+                            <th>액션</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reservations-table-body">
+                        <!-- Reservation data will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="pagination">
+                <button class="pagination-btn" disabled>
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <span class="pagination-info">1 / 5 페이지</span>
+                <button class="pagination-btn">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- Content Management Section -->
+        <section id="content" class="content-section">
+            <div class="section-header">
+                <h2>콘텐츠 관리</h2>
+                <button class="btn btn-primary" onclick="openContentModal()">
+                    <i class="fas fa-plus"></i>
+                    새 콘텐츠 추가
+                </button>
+            </div>
+
+            <div class="content-tabs">
+                <button class="tab-btn active" data-tab="news">뉴스</button>
+                <button class="tab-btn" data-tab="gallery">갤러리</button>
+                <button class="tab-btn" data-tab="notices">공지사항</button>
+            </div>
+
+            <div class="tab-content">
+                <div id="news-tab" class="tab-panel active">
+                    <div class="content-list">
+                        <div class="content-item">
+                            <div class="content-image">
+                                <img src="images/news1.jpg" alt="뉴스 이미지">
+                            </div>
+                            <div class="content-info">
+                                <h3>실감형 사파리 체험 오픈</h3>
+                                <p>부산어린이대공원 실감형 사파리 체험에 초대합니다.</p>
+                                <div class="content-meta">
+                                    <span class="content-date">2024.01.15</span>
+                                    <span class="content-status published">발행</span>
+                                </div>
+                            </div>
+                            <div class="content-actions">
+                                <button class="btn btn-sm btn-outline">수정</button>
+                                <button class="btn btn-sm btn-danger">삭제</button>
+                            </div>
+                        </div>
+                        
+                        <div class="content-item">
+                            <div class="content-image">
+                                <img src="images/news2.jpg" alt="뉴스 이미지">
+                            </div>
+                            <div class="content-info">
+                                <h3>체험 이용객 1만명 돌파</h3>
+                                <p>개장 3개월 만에 누적 이용객이 1만명을 돌파했습니다.</p>
+                                <div class="content-meta">
+                                    <span class="content-date">2024.01.10</span>
+                                    <span class="content-status draft">임시저장</span>
+                                </div>
+                            </div>
+                            <div class="content-actions">
+                                <button class="btn btn-sm btn-outline">수정</button>
+                                <button class="btn btn-sm btn-danger">삭제</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="gallery-tab" class="tab-panel">
+                    <div class="gallery-grid">
+                        <div class="gallery-item">
+                            <img src="images/gallery1.jpg" alt="갤러리 이미지">
+                            <div class="gallery-overlay">
+                                <button class="btn btn-sm btn-outline">수정</button>
+                                <button class="btn btn-sm btn-danger">삭제</button>
+                            </div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="images/gallery2.jpg" alt="갤러리 이미지">
+                            <div class="gallery-overlay">
+                                <button class="btn btn-sm btn-outline">수정</button>
+                                <button class="btn btn-sm btn-danger">삭제</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="notices-tab" class="tab-panel">
+                    <div class="content-list">
+                        <div class="content-item">
+                            <div class="content-info">
+                                <h3>체험 시간 변경 안내</h3>
+                                <p>2월부터 체험 시간이 변경됩니다.</p>
+                                <div class="content-meta">
+                                    <span class="content-date">2026.01.18</span>
+                                    <span class="content-status published">발행</span>
+                                </div>
+                            </div>
+                            <div class="content-actions">
+                                <button class="btn btn-sm btn-outline">수정</button>
+                                <button class="btn btn-sm btn-danger">삭제</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Notifications Section -->
+        <section id="notifications" class="content-section">
+            <div class="section-header">
+                <h2>알림 발송</h2>
+                <button class="btn btn-primary" onclick="openNotificationModal()">
+                    <i class="fas fa-plus"></i>
+                    새 알림 작성
+                </button>
+            </div>
+
+            <div class="notification-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="notification-type">알림 유형</label>
+                        <select id="notification-type" class="form-select">
+                            <option value="sms">SMS</option>
+                            <option value="email">이메일</option>
+                            <option value="both">SMS + 이메일</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="notification-target">대상</label>
+                        <select id="notification-target" class="form-select">
+                            <option value="all">전체 이용객</option>
+                            <option value="today">오늘 예약자</option>
+                            <option value="tomorrow">내일 예약자</option>
+                            <option value="custom">직접 선택</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="notification-title">제목</label>
+                    <input type="text" id="notification-title" class="form-input" placeholder="알림 제목을 입력하세요">
+                </div>
+                
+                <div class="form-group">
+                    <label for="notification-message">메시지</label>
+                    <textarea id="notification-message" class="form-textarea" placeholder="알림 내용을 입력하세요"></textarea>
+                </div>
+                
+                <div class="form-actions">
+                    <button class="btn btn-secondary">미리보기</button>
+                    <button class="btn btn-primary">발송하기</button>
+                </div>
+            </div>
+
+            <div class="notification-history">
+                <h3>발송 이력</h3>
+                <div class="history-list">
+                    <div class="history-item">
+                        <div class="history-info">
+                            <h4>체험 시간 변경 안내</h4>
+                            <p>오늘 예약자 대상</p>
+                            <span class="history-date">2024.01.20 14:30</span>
+                        </div>
+                        <div class="history-stats">
+                            <span class="stat-item">발송: 24명</span>
+                            <span class="stat-item">성공: 24명</span>
+                            <span class="stat-item status success">완료</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Analytics Section -->
+        <section id="analytics" class="content-section">
+            <div class="section-header">
+                <h2>통계 분석</h2>
+                <div class="analytics-filters">
+                    <select class="filter-select">
+                        <option value="7">최근 7일</option>
+                        <option value="30">최근 30일</option>
+                        <option value="90">최근 90일</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="analytics-grid">
+                <div class="analytics-card">
+                    <h3>예약 추이</h3>
+                    <canvas id="reservationTrendChart"></canvas>
+                </div>
+                
+                <div class="analytics-card">
+                    <h3>방문자 통계</h3>
+                    <canvas id="visitorChart"></canvas>
+                </div>
+                
+                <div class="analytics-card">
+                    <h3>매출 통계</h3>
+                    <canvas id="revenueChart"></canvas>
+                </div>
+                
+                <div class="analytics-card">
+                    <h3>인기 시간대</h3>
+                    <div class="popular-times">
+                        <div class="time-slot">
+                            <span class="time">19:00</span>
+                            <div class="bar">
+                                <div class="bar-fill" style="width: 90%"></div>
+                            </div>
+                            <span class="count">90명</span>
+                        </div>
+                        <div class="time-slot">
+                            <span class="time">20:00</span>
+                            <div class="bar">
+                                <div class="bar-fill" style="width: 100%"></div>
+                            </div>
+                            <span class="count">100명</span>
+                        </div>
+                        <div class="time-slot">
+                            <span class="time">21:00</span>
+                            <div class="bar">
+                                <div class="bar-fill" style="width: 95%"></div>
+                            </div>
+                            <span class="count">95명</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Settings Section -->
+        <section id="settings" class="content-section">
+            <div class="section-header">
+                <h2>설정</h2>
+            </div>
+
+            <div class="settings-tabs">
+                <button class="tab-btn active" data-tab="general">일반 설정</button>
+                <button class="tab-btn" data-tab="reservation">예약 설정</button>
+                <button class="tab-btn" data-tab="notification">알림 설정</button>
+            </div>
+
+            <div class="settings-content">
+                <div id="general-tab" class="tab-panel active">
+                    <div class="settings-group">
+                        <h3>기본 정보</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="site-name">사이트 이름</label>
+                                <input type="text" id="site-name" class="form-input" value="부산어린이대공원 실감형 사파리">
+                            </div>
+                            <div class="form-group">
+                                <label for="site-description">사이트 설명</label>
+                                <textarea id="site-description" class="form-textarea">가상현실로 만나는 아프리카 사파리의 신비로운 동물들의 세계</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="reservation-tab" class="tab-panel">
+                    <div class="settings-group">
+                        <h3>예약 설정</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="max-capacity">회차당 최대 인원</label>
+                                <input type="number" id="max-capacity" class="form-input" value="20">
+                            </div>
+                            <div class="form-group">
+                                <label for="adult-price">성인 요금</label>
+                                <input type="number" id="adult-price" class="form-input" value="10000">
+                            </div>
+                            <div class="form-group">
+                                <label for="child-price">어린이 요금</label>
+                                <input type="number" id="child-price" class="form-input" value="5000">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="notification-tab" class="tab-panel">
+                    <div class="settings-group">
+                        <h3>알림 설정</h3>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" checked>
+                                <span class="checkmark"></span>
+                                <span>예약 확인 알림 발송</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" checked>
+                                <span class="checkmark"></span>
+                                <span>체험 당일 알림 발송</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                                <span>마케팅 알림 발송</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Content Modal -->
+    <div id="content-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>새 콘텐츠 추가</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form class="content-form">
+                    <div class="form-group">
+                        <label for="content-title">제목</label>
+                        <input type="text" id="content-title" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="content-image">이미지</label>
+                        <input type="file" id="content-image" class="form-input" accept="image/*">
+                    </div>
+                    <div class="form-group">
+                        <label for="content-description">내용</label>
+                        <textarea id="content-description" class="form-textarea" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="content-status">상태</label>
+                        <select id="content-status" class="form-select">
+                            <option value="draft">임시저장</option>
+                            <option value="published">발행</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeContentModal()">취소</button>
+                <button class="btn btn-primary">저장</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reservation Details Modal -->
+    <div id="reservation-details-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>예약 상세 정보</h3>
+                <button class="modal-close" onclick="closeReservationDetailsModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="reservation-details-grid">
+                    <div class="details-section">
+                        <h4>기본 정보</h4>
+                        <div class="detail-item">
+                            <span class="label">예약번호</span>
+                            <span class="value" id="admin-reservation-number">-</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="label">예약자명</span>
+                            <span class="value" id="admin-reservation-name">-</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="label">연락처</span>
+                            <span class="value" id="admin-reservation-phone">-</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="label">이메일</span>
+                            <span class="value" id="admin-reservation-email">-</span>
+                        </div>
+                    </div>
+                    
+                    <div class="details-section">
+                        <h4>체험 정보</h4>
+                        <div class="detail-item">
+                            <span class="label">체험 날짜</span>
+                            <span class="value" id="admin-experience-date">-</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="label">체험 시간</span>
+                            <span class="value" id="admin-experience-time">-</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="label">참여 인원</span>
+                            <span class="value" id="admin-participants">-</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="label">상태</span>
+                            <span class="value status" id="admin-status">-</span>
+                        </div>
+                    </div>
+                    
+                    <div class="details-section">
+                        <h4>결제 정보</h4>
+                        <div class="detail-item">
+                            <span class="label">총 금액</span>
+                            <span class="value" id="admin-total-amount">-</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="label">결제 방법</span>
+                            <span class="value" id="admin-payment-method">-</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="label">예약 일시</span>
+                            <span class="value" id="admin-reservation-date">-</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="reservation-actions">
+                    <button class="btn btn-primary" onclick="modifyAdminReservation()">
+                        <i class="fas fa-edit"></i>
+                        수정
+                    </button>
+                    <button class="btn btn-danger" onclick="cancelAdminReservation()">
+                        <i class="fas fa-times"></i>
+                        취소
+                    </button>
+                    <button class="btn btn-secondary" onclick="sendReminder()">
+                        <i class="fas fa-bell"></i>
+                        알림 발송
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content Preview Modal -->
+    <div id="content-preview-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>콘텐츠 미리보기</h3>
+                <button class="modal-close" onclick="closeContentPreviewModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="content-preview">
+                    <div class="preview-image">
+                        <img id="preview-content-image" src="" alt="">
+                    </div>
+                    <div class="preview-info">
+                        <div class="preview-meta">
+                            <span id="preview-content-date"></span>
+                            <span id="preview-content-category"></span>
+                        </div>
+                        <h2 id="preview-content-title"></h2>
+                        <div id="preview-content-description"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeContentPreviewModal()">닫기</button>
+                <button class="btn btn-primary" onclick="editContent()">
+                    <i class="fas fa-edit"></i>
+                    수정
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Modal -->
+    <div id="notification-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>알림 발송</h3>
+                <button class="modal-close" onclick="closeNotificationModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="notification-preview">
+                    <h4>미리보기</h4>
+                    <div class="preview-content">
+                        <p class="preview-title">알림 제목</p>
+                        <p class="preview-message">알림 내용이 여기에 표시됩니다.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeNotificationModal()">취소</button>
+                <button class="btn btn-primary">발송</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Analytics Preview Modal -->
+    <div id="analytics-preview-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>통계 상세 분석</h3>
+                <button class="modal-close" onclick="closeAnalyticsPreviewModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="analytics-tabs">
+                    <button class="tab-btn active" data-tab="daily">일별</button>
+                    <button class="tab-btn" data-tab="weekly">주별</button>
+                    <button class="tab-btn" data-tab="monthly">월별</button>
+                </div>
+                
+                <div class="analytics-content">
+                    <div id="daily-analytics" class="tab-panel active">
+                        <canvas id="daily-chart"></canvas>
+                    </div>
+                    <div id="weekly-analytics" class="tab-panel">
+                        <canvas id="weekly-chart"></canvas>
+                    </div>
+                    <div id="monthly-analytics" class="tab-panel">
+                        <canvas id="monthly-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeAnalyticsPreviewModal()">닫기</button>
+                <button class="btn btn-primary" onclick="exportAnalytics()">
+                    <i class="fas fa-download"></i>
+                    데이터 내보내기
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <script src="scripts/admin.js"></script>
+</body>
+</html>

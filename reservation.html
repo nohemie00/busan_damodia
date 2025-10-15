@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>예약하기 - 부산어린이대공원 실감형 사파리</title>
+    <link rel="stylesheet" href="styles/reservation.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>홈으로 돌아가기</span>
+                </a>
+                <h1 class="page-title">예약하기</h1>
+                <div class="progress-indicator">
+                    <div class="step active" data-step="1">
+                        <span class="step-number">1</span>
+                        <span class="step-label">날짜/시간</span>
+                    </div>
+                    <div class="step" data-step="2">
+                        <span class="step-number">2</span>
+                        <span class="step-label">인원선택</span>
+                    </div>
+                    <div class="step" data-step="3">
+                        <span class="step-number">3</span>
+                        <span class="step-label">정보입력</span>
+                    </div>
+                    <div class="step" data-step="4">
+                        <span class="step-number">4</span>
+                        <span class="step-label">확인/결제</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="reservation-container">
+                <!-- Step 1: Date & Time Selection -->
+                <section id="step1" class="reservation-step active">
+                    <div class="step-header">
+                        <h2>날짜와 시간을 선택하세요</h2>
+                        <p>원하시는 체험 날짜와 시간을 선택해주세요</p>
+                    </div>
+                    
+                    <div class="date-time-selector">
+                        <div class="calendar-section">
+                            <h3>날짜 선택</h3>
+                            <div class="calendar-container">
+                                <div class="calendar-header">
+                                    <button class="calendar-nav" id="prev-month">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </button>
+                                    <span class="current-month" id="current-month"></span>
+                                    <button class="calendar-nav" id="next-month">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </button>
+                                </div>
+                                <div class="calendar-grid" id="calendar-grid"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="time-section">
+                            <h3>시간 선택</h3>
+                            <div class="time-slots" id="time-slots">
+                                <div class="time-slot disabled">
+                                    <span>날짜를 먼저 선택해주세요</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="step-actions">
+                        <button class="btn btn-primary" id="step1-next" disabled>
+                            다음 단계
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Step 2: People Selection -->
+                <section id="step2" class="reservation-step">
+                    <div class="step-header">
+                        <h2>인원을 선택하세요</h2>
+                        <p>체험에 참여할 인원을 선택해주세요</p>
+                    </div>
+                    
+                    <div class="people-selector">
+                        <div class="people-card">
+                            <div class="people-info">
+                                <h3>성인 (13세/중학생 이상)</h3>
+                                <p class="price">10,000원</p>
+                                <p class="description">VR 체험 가능 연령</p>
+                            </div>
+                            <div class="people-controls">
+                                <button class="quantity-btn" id="adult-minus">-</button>
+                                <span class="quantity" id="adult-count">1</span>
+                                <button class="quantity-btn" id="adult-plus">+</button>
+                            </div>
+                        </div>
+                        
+                        <div class="people-card">
+                            <div class="people-info">
+                                <h3>어린이 (3-12세)</h3>
+                                <p class="price">5,000원</p>
+                                <p class="description">보호자 동반 필수</p>
+                            </div>
+                            <div class="people-controls">
+                                <button class="quantity-btn" id="child-minus">-</button>
+                                <span class="quantity" id="child-count">0</span>
+                                <button class="quantity-btn" id="child-plus">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="total-summary">
+                        <div class="summary-item">
+                            <span>성인 1명 × 10,000원</span>
+                            <span id="adult-total">15,000원</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>어린이 1명 × 5,000원</span>
+                            <span id="child-total">0원</span>
+                        </div>
+                        <div class="summary-total">
+                            <span>총 금액</span>
+                            <span id="total-amount">15,000원</span>
+                        </div>
+                    </div>
+                    
+                    <div class="step-actions">
+                        <button class="btn btn-secondary" id="step2-back">
+                            <i class="fas fa-arrow-left"></i>
+                            이전 단계
+                        </button>
+                        <button class="btn btn-primary" id="step2-next">
+                            다음 단계
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Step 3: Information Input -->
+                <section id="step3" class="reservation-step">
+                    <div class="step-header">
+                        <h2>예약자 정보를 입력하세요</h2>
+                        <p>체험 예약에 필요한 정보를 입력해주세요</p>
+                    </div>
+                    
+                    <div class="info-form">
+                        <div class="form-section">
+                            <h3>예약자 정보</h3>
+                            <div class="form-group">
+                                <label for="reservation-name">예약자명 *</label>
+                                <input type="text" id="reservation-name" name="name" required>
+                                <span class="error-message" id="name-error"></span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="reservation-phone">연락처 *</label>
+                                <input type="tel" id="reservation-phone" name="phone" placeholder="010-1234-5678" required>
+                                <span class="error-message" id="phone-error"></span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="reservation-email">이메일 *</label>
+                                <input type="email" id="reservation-email" name="email" placeholder="example@email.com" required>
+                                <span class="error-message" id="email-error"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-section">
+                            <h3>체험자 정보</h3>
+                            <div class="participants-list" id="participants-list">
+                                <!-- Participants will be added dynamically -->
+                            </div>
+                            <button type="button" class="btn btn-outline" id="add-participant">
+                                <i class="fas fa-plus"></i>
+                                체험자 추가
+                            </button>
+                        </div>
+                        
+                        <div class="form-section">
+                            <h3>특별 요청사항</h3>
+                            <div class="form-group">
+                                <label for="special-requests">요청사항</label>
+                                <textarea id="special-requests" name="requests" placeholder="특별한 요청사항이 있으시면 입력해주세요"></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="form-section">
+                            <h3>이용약관 및 개인정보처리방침</h3>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="terms-agreement" required>
+                                    <span class="checkmark"></span>
+                                    <span class="checkbox-text">
+                                        <a href="#" target="_blank">이용약관</a> 및 
+                                        <a href="#" target="_blank">개인정보처리방침</a>에 동의합니다 *
+                                    </span>
+                                </label>
+                            </div>
+                            
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="marketing-agreement">
+                                    <span class="checkmark"></span>
+                                    <span class="checkbox-text">
+                                        마케팅 정보 수신에 동의합니다 (선택)
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="step-actions">
+                        <button class="btn btn-secondary" id="step3-back">
+                            <i class="fas fa-arrow-left"></i>
+                            이전 단계
+                        </button>
+                        <button class="btn btn-primary" id="step3-next">
+                            다음 단계
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Step 4: Confirmation & Payment -->
+                <section id="step4" class="reservation-step">
+                    <div class="step-header">
+                        <h2>예약 정보를 확인하세요</h2>
+                        <p>입력하신 정보를 확인하고 예약을 완료해주세요</p>
+                    </div>
+                    
+                    <div class="confirmation-container">
+                        <div class="confirmation-summary">
+                            <h3>예약 정보 요약</h3>
+                            <div class="summary-details">
+                                <div class="detail-item">
+                                    <span class="label">체험 날짜</span>
+                                    <span class="value" id="confirm-date">-</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="label">체험 시간</span>
+                                    <span class="value" id="confirm-time">-</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="label">참여 인원</span>
+                                    <span class="value" id="confirm-people">-</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="label">예약자명</span>
+                                    <span class="value" id="confirm-name">-</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="label">연락처</span>
+                                    <span class="value" id="confirm-phone">-</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="label">이메일</span>
+                                    <span class="value" id="confirm-email">-</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="payment-summary">
+                            <h3>결제 정보</h3>
+                            <div class="payment-details">
+                                <div class="payment-item">
+                                    <span>성인 × 1명</span>
+                                    <span id="payment-adult">10,000원</span>
+                                </div>
+                                <div class="payment-item">
+                                    <span>어린이 × 1명</span>
+                                    <span id="payment-child">5,000원</span>
+                                </div>
+                                <div class="payment-total">
+                                    <span>총 결제 금액</span>
+                                    <span id="payment-total">15,000원</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="payment-methods">
+                            <h3>결제 방법</h3>
+                            <div class="payment-options">
+                                <label class="payment-option">
+                                    <input type="radio" name="payment-method" value="card" checked>
+                                    <span class="payment-option-content">
+                                        <i class="fas fa-credit-card"></i>
+                                        <span>신용카드</span>
+                                    </span>
+                                </label>
+                                <label class="payment-option">
+                                    <input type="radio" name="payment-method" value="transfer">
+                                    <span class="payment-option-content">
+                                        <i class="fas fa-university"></i>
+                                        <span>무통장입금</span>
+                                    </span>
+                                </label>
+                                <label class="payment-option">
+                                    <input type="radio" name="payment-method" value="phone">
+                                    <span class="payment-option-content">
+                                        <i class="fas fa-mobile-alt"></i>
+                                        <span>휴대폰 결제</span>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="step-actions">
+                        <button class="btn btn-secondary" id="step4-back">
+                            <i class="fas fa-arrow-left"></i>
+                            이전 단계
+                        </button>
+                        <button class="btn btn-outline" onclick="openPreviewModal()">
+                            <i class="fas fa-eye"></i>
+                            미리보기
+                        </button>
+                        <button class="btn btn-primary btn-large" id="complete-reservation">
+                            <i class="fas fa-check"></i>
+                            예약 완료하기
+                        </button>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <p>예약을 처리하고 있습니다...</p>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="modal">
+        <div class="modal-content">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2>예약이 완료되었습니다!</h2>
+            <div class="reservation-details">
+                <p><strong>예약번호:</strong> <span id="reservation-number"></span></p>
+                <p><strong>체험 일시:</strong> <span id="success-date-time"></span></p>
+                <p><strong>참여 인원:</strong> <span id="success-people"></span></p>
+                <p><strong>총 금액:</strong> <span id="success-total"></span></p>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-primary" onclick="window.location.href='index.html'">
+                    홈으로 돌아가기
+                </button>
+                <button class="btn btn-secondary" onclick="printReservation()">
+                    <i class="fas fa-print"></i>
+                    예약 확인서 출력
+                </button>
+                <button class="btn btn-outline" onclick="viewReservationDetails()">
+                    <i class="fas fa-eye"></i>
+                    상세 보기
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reservation Details Modal -->
+    <div id="reservation-details-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeReservationDetailsModal()">&times;</span>
+            <h2>예약 상세 정보</h2>
+            <div class="reservation-details-content">
+                <div class="details-section">
+                    <h3><i class="fas fa-info-circle"></i> 기본 정보</h3>
+                    <div class="details-grid">
+                        <div class="detail-item">
+                            <span class="label">예약번호</span>
+                            <span class="value" id="detail-reservation-number">-</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="label">예약일시</span>
+                            <span class="value" id="detail-reservation-date">-</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="label">체험일시</span>
+                            <span class="value" id="detail-experience-date">-</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="label">상태</span>
+                            <span class="value status confirmed" id="detail-status">확정</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="details-section">
+                    <h3><i class="fas fa-user"></i> 예약자 정보</h3>
+                    <div class="details-grid">
+                        <div class="detail-item">
+                            <span class="label">예약자명</span>
+                            <span class="value" id="detail-name">-</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="label">연락처</span>
+                            <span class="value" id="detail-phone">-</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="label">이메일</span>
+                            <span class="value" id="detail-email">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="details-section">
+                    <h3><i class="fas fa-users"></i> 참여 인원</h3>
+                    <div class="participants-detail" id="participants-detail">
+                        <!-- Participants will be populated here -->
+                    </div>
+                </div>
+
+                <div class="details-section">
+                    <h3><i class="fas fa-won-sign"></i> 결제 정보</h3>
+                    <div class="payment-details">
+                        <div class="payment-item">
+                            <span>성인 × <span id="detail-adults-count">0</span>명</span>
+                            <span id="detail-adults-amount">0원</span>
+                        </div>
+                        <div class="payment-item">
+                            <span>어린이 × <span id="detail-children-count">0</span>명</span>
+                            <span id="detail-children-amount">0원</span>
+                        </div>
+                        <div class="payment-total">
+                            <span>총 결제 금액</span>
+                            <span id="detail-total-amount">0원</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="details-section">
+                    <h3><i class="fas fa-info"></i> 이용 안내</h3>
+                    <div class="info-notice">
+                        <ul>
+                            <li>체험 시작 10분 전까지 도착해주세요.</li>
+                            <li>VR 체험은 10세 이상 권장입니다.</li>
+                            <li>임신부 및 심장질환자는 체험에 제한이 있을 수 있습니다.</li>
+                            <li>예약 취소는 체험 24시간 전까지 가능합니다.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="modifyReservation()">
+                    <i class="fas fa-edit"></i>
+                    예약 수정
+                </button>
+                <button class="btn btn-danger" onclick="cancelReservation()">
+                    <i class="fas fa-times"></i>
+                    예약 취소
+                </button>
+                <button class="btn btn-secondary" onclick="printReservation()">
+                    <i class="fas fa-print"></i>
+                    인쇄
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Preview Modal -->
+    <div id="preview-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closePreviewModal()">&times;</span>
+            <h2>예약 정보 미리보기</h2>
+            <div class="preview-content">
+                <div class="preview-summary">
+                    <h3>예약 요약</h3>
+                    <div class="preview-grid">
+                        <div class="preview-item">
+                            <span class="label">체험 날짜</span>
+                            <span class="value" id="preview-date">-</span>
+                        </div>
+                        <div class="preview-item">
+                            <span class="label">체험 시간</span>
+                            <span class="value" id="preview-time">-</span>
+                        </div>
+                        <div class="preview-item">
+                            <span class="label">참여 인원</span>
+                            <span class="value" id="preview-people">-</span>
+                        </div>
+                        <div class="preview-item">
+                            <span class="label">총 금액</span>
+                            <span class="value" id="preview-total">-</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="preview-note">
+                    <p><i class="fas fa-info-circle"></i> 위 정보를 확인하시고 예약을 완료해주세요.</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closePreviewModal()">
+                    돌아가기
+                </button>
+                <button class="btn btn-primary" onclick="confirmReservation()">
+                    <i class="fas fa-check"></i>
+                    예약 완료
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts/reservation.js"></script>
+</body>
+</html>

@@ -1,0 +1,701 @@
+/* Pretendard 웹 폰트 로드 */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+
+/* ================== 초기화 및 기본 스타일 ================== */
+:root {
+    --primary-color: #A67B5B; /* 메인 컬러 (브라운 계열) */
+    --dark-color: #1a1a1a;
+    --light-color: #f4f4f4;
+    --white-color: #ffffff;
+    --header-height: 80px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+    color: var(--dark-color);
+    line-height: 1.6;
+    background-color: var(--white-color);
+    overflow-x: hidden;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+section {
+    padding: 6rem 0;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 3rem;
+}
+
+/* ================== 전체 화면 영상 배경 ================== */
+.video-background {
+    position: fixed; /* 화면에 고정 */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1; /* 다른 콘텐츠보다 뒤에 위치 */
+    overflow: hidden;
+}
+
+.video-background video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 영상이 컨테이너를 꽉 채우도록 설정 */
+    filter: brightness(0.6); /* 영상을 약간 어둡게 처리 */
+}
+
+/* ================== 헤더 및 네비게이션 ================== */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: background-color 0.4s ease, padding 0.4s ease;
+    
+    /* 아래 두 줄을 추가 또는 수정하세요 */
+    background-color: transparent; /* 기본 상태를 투명하게 설정 */
+    padding: 1rem 2rem; 
+}
+
+.header.scrolled {
+    background-color: rgba(70, 62, 62, 0.9); /* 스크롤 시 나타날 배경색 */
+    padding: 1rem 2rem; /* 스크롤 시 위아래 여백을 살짝 줄여 동적인 느낌 */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* 스크롤 시에만 그림자 표시 */
+}
+
+.header.scrolled nav a {
+    color: rgb(250, 250, 250); /* 스크롤 할 때 글자색을 흰색으로 유지 */
+}
+
+.navbar {
+    height: var(--header-height);
+    display: flex;
+    align-items: center;
+}
+
+.nav-container {
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: center; /* 메뉴 중앙 정렬 */
+    align-items: center;
+    position: relative;
+}
+
+.nav-logo {
+    position: absolute; /* 중앙 정렬을 위해 로고는 절대 위치로 */
+    left: 2rem;
+}
+
+.nav-logo .logo {
+    height: 40px;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 2.5rem;
+}
+
+.nav-link {
+    color: var(--white-color);
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    position: relative;
+    padding: 5px 0;
+    transition: color 0.3s;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--primary-color);
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.nav-actions {
+    position: absolute;
+    right: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.lang-btn {
+    background: none;
+    border: 1px solid var(--white-color);
+    color: var(--white-color);
+    padding: 0.4rem 0.8rem;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.lang-btn:hover {
+    background-color: var(--white-color);
+    color: var(--dark-color);
+}
+
+.hamburger { /* 모바일 메뉴 버튼은 일단 숨김 */
+    display: none;
+}
+
+/* ================== 로고 교체 스타일 ================== */
+
+/* 기본 상태 (페이지 최상단) */
+.logo-color {
+    display: none;  /* 컬러 로고(logo_black.png)는 일단 숨김 */
+}
+.logo-white {
+    display: block; /* 흰색 로고(logo.png)는 보여줌 */
+}
+
+/* 스크롤을 내렸을 때 (header에 scrolled 클래스가 붙었을 때) */
+.header.scrolled .logo-color {
+    display: none; /* 컬러 로고는 계속 숨김 */
+}
+.header.scrolled .logo-white {
+    display: block;  /* 흰색 로고를 계속 보여줌 */
+}
+
+/* ================== 히어로 섹션 (메인 화면) ================== */
+#home.hero {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: var(--white-color);
+    padding: 0;
+}
+
+.hero-content {
+    max-width: 800px;
+}
+
+.hero-title .main-title {
+    display: block;
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.hero-title .sub-title {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 1.5rem;
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 2.5rem;
+}
+
+.btn {
+    padding: 0.8rem 2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    border: 2px solid var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: transparent;
+    color: var(--primary-color);
+}
+
+/* ================== 콘텐츠 섹션 공통 ================== */
+/* 히어로 섹션 외의 다른 섹션들은 배경색을 줘야 영상 위로 보입니다. */
+#about, #reservation, #gallery, #news, #contact, .footer {
+    background-color: var(--white-color);
+}
+
+/* 스크롤 애니메이션 */
+section {
+    opacity: 1;
+    transform: translateY(0px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ================== About Section (체험 소개) ================== */
+#about {
+    background-color: var(--light-color); /* 약간의 배경색 변화 */
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3단 그리드 */
+    gap: 2rem;
+    text-align: center;
+}
+
+.about-card {
+    background: var(--white-color);
+    padding: 2.5rem 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.about-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.about-card .card-icon {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+}
+
+.about-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+}
+
+.about-card p {
+    color: #555;
+    font-size: 1rem;
+}
+
+
+/* ================== Reservation Section (예약하기) ================== */
+.reservation-info {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.info-card {
+    background: var(--light-color);
+    padding: 2rem;
+    border-radius: 8px;
+    border-top: 4px solid var(--primary-color);
+}
+
+.info-card h3 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.7rem;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+}
+
+.info-card p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #333;
+}
+
+.reservation-cta {
+    text-align: center;
+}
+
+.btn-large {
+    padding: 1rem 3rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+
+/* ================== Gallery Section (갤러리) ================== */
+#gallery {
+    background-color: var(--light-color);
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    border-radius: 8px;
+    aspect-ratio: 1 / 1; /* 정사각형 비율 */
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.1);
+}
+
+.gallery-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    color: var(--white-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.gallery-item:hover .gallery-overlay {
+    opacity: 1;
+}
+
+
+/* ================== News Section (뉴스룸) ================== */
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.news-card {
+    display: flex;
+    background: var(--white-color);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.news-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.news-image {
+    width: 200px;
+    flex-shrink: 0;
+}
+
+.news-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.news-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.news-content h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.news-content p {
+    color: #555;
+    flex-grow: 1; /* p 태그가 남은 공간을 채우도록 */
+}
+
+.news-date {
+    font-size: 0.9rem;
+    color: #888;
+    margin-top: 1rem;
+}
+
+
+/* ================== Contact Section (이용안내) ================== */
+#contact {
+    background-color: var(--light-color);
+}
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+.contact-info h3 {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    font-weight: 600;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+}
+
+.contact-item i {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    width: 30px;
+    text-align: center;
+}
+
+.social-links {
+    margin-top: 2.5rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.social-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: #ddd;
+    color: var(--dark-color);
+    text-decoration: none;
+    font-size: 1.3rem;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.social-link:hover {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+}
+
+.contact-map {
+    border-radius: 8px;
+    overflow: hidden;
+    height: 400px;
+}
+.contact-map iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* ================== Footer ================== */
+.footer {
+    background-color: #222;
+    color: #aaa;
+    padding: 4rem 0 2rem;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid #444;
+}
+
+.footer-info h3 {
+    color: var(--white-color);
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.footer-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.footer-links a {
+    color: #aaa;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-links a:hover {
+    color: var(--white-color);
+}
+
+.footer-bottom {
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+/* =================================================================== */
+/* ============== 반응형 디자인을 위한 미디어 쿼리 (아래 추가) ============== */
+/* =================================================================== */
+
+/* 태블릿 사이즈 (992px 이하) */
+@media (max-width: 992px) {
+    .container {
+        padding: 0 1.5rem;
+    }
+
+    .nav-menu {
+        gap: 1.5rem; /* 메뉴 간격 줄이기 */
+    }
+
+    .nav-link {
+        font-size: 1rem;
+    }
+
+    .hero-title .main-title {
+        font-size: 3rem;
+    }
+
+    .hero-title .sub-title {
+        font-size: 1.5rem;
+    }
+
+    .about-grid,
+    .reservation-info {
+        grid-template-columns: 1fr; /* 3단 -> 1단으로 변경 */
+        gap: 1.5rem;
+    }
+
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr); /* 4단 -> 2단으로 변경 */
+    }
+
+    .news-grid {
+        grid-template-columns: 1fr; /* 2단 -> 1단으로 변경 */
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr; /* 2단 -> 1단으로 변경 */
+        gap: 2.5rem;
+    }
+}
+
+/* 모바일 사이즈 (768px 이하) */
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 2rem;
+    }
+
+    /* === 모바일 햄버거 메뉴 설정 === */
+    .nav-menu {
+        display: none; /* 평소에는 메뉴 숨기기 */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(26, 26, 26, 0.98);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+    }
+
+    .nav-menu.active {
+        display: flex; /* 햄버거 클릭 시 메뉴 보이기 */
+    }
+
+    .nav-link {
+        font-size: 1.5rem;
+    }
+    
+    .hamburger {
+        display: flex; /* 햄버거 아이콘 보이기 */
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+        background: none;
+        border: none;
+        z-index: 1001; /* 메뉴보다 위에 위치 */
+    }
+
+    .hamburger span {
+        display: block;
+        width: 25px;
+        height: 3px;
+        background-color: var(--white-color);
+        transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    
+    .header.scrolled .hamburger span {
+        background-color: var(--dark-color); /* 스크롤 내렸을 때 색 변경 */
+    }
+
+    /* 햄버거 X자 모양으로 변경 */
+    .hamburger.active span:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+    .hamburger.active span:nth-child(2) {
+        opacity: 0;
+    }
+    .hamburger.active span:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+    /* 햄버거가 활성화되면 X자 색상을 흰색으로 고정 */
+    .hamburger.active span {
+        background-color: var(--white-color) !important;
+    }
+
+    /* 히어로 섹션 */
+    .hero-title .main-title {
+        font-size: 2.5rem;
+    }
+    .hero-title .sub-title {
+        font-size: 1.3rem;
+    }
+    .hero-subtitle {
+        font-size: 1rem;
+        padding: 0 1rem;
+    }
+
+    /* 푸터 */
+    .footer-content {
+        flex-direction: column;
+        gap: 2rem;
+        text-align: center;
+    }
+}

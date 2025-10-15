@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">부산어린이대공원 실감형 사파리</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">  <div class="nav-logo">
+                    <a href="#home">
+                        <img src="images/logo.png" alt="부산어린이대공원 로고" class="logo logo-white">
+                        <img src="images/logo_black.png" alt="부산어린이대공원 로고" class="logo logo-color">
+                    </a>
+                </div>
+                <div class="nav-menu" id="nav-menu">
+                    <a href="#about" class="nav-link" id="nav-about">체험 소개</a>
+                    <a href="#reservation" class="nav-link" id="nav-reservation">예약하기</a>
+                    <a href="#gallery" class="nav-link" id="nav-gallery">갤러리</a>
+                    <a href="#news" class="nav-link" id="nav-news">게시판</a>
+                    <a href="#contact" class="nav-link" id="nav-contact">이용안내</a>
+                </div>
+                <div class="nav-actions">
+                    <button class="lang-btn" id="lang-btn">EN</button>
+                    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+                </div>
+            </div> </nav>
+    </header>
+
+    <div class="video-background">
+        <video autoplay muted loop playsinline poster="images/safari_poster.png">
+            <source src="images/damodia_teasor.mp4" type="video/mp4">
+        </video>
+    </div>
+
+
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="main-title" id="hero-main-title">부산어린이대공원</span>
+                    <span class="sub-title" id="hero-sub-title">해가 지면 살아나는 실감형 사파리 "다모디아"</span>
+                </h1>
+                <p class="hero-subtitle" id="hero-subtitle-text">부산 시민들의 꿈과 소망으로 이루어진 섬. 잠든 다모디아를 깨울 탐험대를 모집합니다.</p>
+                <button class="btn btn-primary" onclick="scrollToSection('reservation')">
+                    <i class="fas fa-calendar-plus "></i><span id="hero-button-text">  예약하기 </span>
+                </button>
+            </div>
+        </section>
+    </div>
+
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title" id="about-title">체험 소개</h2>
+            <div class="about-grid">
+                <div class="about-card">
+                    <div class="card-icon"><i class="fas fa-vr-cardboard"></i></div>
+                    <h3 id="about-card1-title">Digi-log</h3>
+                    <p id="about-card1-desc">디지털 사파리와 오리엔티어링의 결합</p>
+                </div>
+                <div class="about-card">
+                    <div class="card-icon"><i class="fas fa-users"></i></div>
+                    <h3 id="about-card2-title">그룹 체험</h3>
+                    <p id="about-card2-desc">가족, 친구들과 함께하는 특별한 체험</p>
+                </div>
+                <div class="about-card">
+                    <div class="card-icon"><i class="fas fa-clock"></i></div>
+                    <h3 id="about-card3-title">100분 체험</h3>
+                    <p id="about-card3-desc">다채롭고 능동적인 체험으로 시간 순삭</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="reservation" class="reservation">
+        <div class="container">
+            <h2 class="section-title" id="reservation-title"> 예약하기 </h2>
+            <div class="reservation-info">
+                <div class="info-card">
+                    <h3><i class="fas fa-calendar-alt"></i><span id="res-card1-title">운영시간</span></h3>
+                    <p id="res-card1-desc">평일: 18:00 - 21:00<br>주말: 18:00 - 22:00</p>
+                </div>
+                <div class="info-card">
+                    <h3><i class="fas fa-users"></i><span id="res-card2-title">정원</span></h3>
+                    <p id="res-card2-desc">회차당 최대 100명<br>(3세 이상 권장)</p>
+                </div>
+                <div class="info-card">
+                    <h3><i class="fas fa-won-sign"></i><span id="res-card3-title">이용요금</span></h3>
+                    <p id="res-card3-desc">성인: 10,000원<br>어린이: 5,000원</p>
+                </div>
+            </div>
+            <div class="reservation-cta">
+                <a href="reservation.html" class="btn btn-primary btn-large">
+                    <i class="fas fa-ticket-alt"></i><span id="res-button-text"> 지금 예약하기</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <h2 class="section-title" id="gallery-title">갤러리</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item" onclick="openGalleryModal(0)"><img src="images/gallery1.jpg" alt="오리엔티어링 체험"><div class="gallery-overlay"><i class="fas fa-search-plus"></i></div></div>
+                <div class="gallery-item" onclick="openGalleryModal(1)"><img src="images/gallery2.jpg" alt="사파리 동물들"><div class="gallery-overlay"><i class="fas fa-search-plus"></i></div></div>
+                <div class="gallery-item" onclick="openGalleryModal(2)"><img src="images/gallery3.jpg" alt="수수께끼의 숲 체험"><div class="gallery-overlay"><i class="fas fa-search-plus"></i></div></div>
+                <div class="gallery-item" onclick="openGalleryModal(3)"><img src="images/gallery4.jpg" alt="실감 체험관"><div class="gallery-overlay"><i class="fas fa-search-plus"></i></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="news" class="news">
+        <div class="container">
+            <h2 class="section-title" id="news-title">게시판</h2>
+            <div class="news-grid">
+                <article class="news-card" onclick="openNewsModal(0)">
+                    <div class="news-image"><img src="images/news1.jpg" alt="뉴스 이미지"></div>
+                    <div class="news-content">
+                        <h3 id="news1-title">실감형 사파리 체험 오픈</h3>
+                        <p id="news1-desc">부산어린이대공원에서 새로운 VR 체험 시설이 오픈했습니다.</p>
+                        <span class="news-date">2026.04.15</span>
+                    </div>
+                </article>
+                <article class="news-card" onclick="openNewsModal(1)">
+                    <div class="news-image"><img src="images/news2.jpg" alt="뉴스 이미지"></div>
+                    <div class="news-content">
+                        <h3 id="news2-title">체험 이용객 100만명 돌파</h3>
+                        <p id="news2-desc">개장 3개월 만에 누적 이용객이 100만명을 돌파했습니다.</p>
+                        <span class="news-date">2026.07.10</span>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title" id="contact-title">이용안내</h2>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3 id="contact-info-title">연락처 정보</h3>
+                    <div class="contact-item"><i class="fas fa-phone"></i><span>051-860-7848</span></div>
+                    <div class="contact-item"><i class="fas fa-envelope"></i><span>https://www.bisco.or.kr/bschildpark/</span></div>
+                    <div class="contact-item"><i class="fas fa-map-marker-alt"></i><span id="contact-address">부산광역시 부산진구 새싹로 295</span></div>
+                </div>
+                <div class="contact-map"><iframe src="" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe></div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3 id="footer-title">부산어린이대공원</h3>
+                    <p id="footer-subtitle">실감형 사파리 체험</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#" id="footer-link1">개인정보처리방침</a>
+                    <a href="#" id="footer-link2">이용약관</a>
+                    <a href="#" id="footer-link3">사이트맵</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p id="footer-copy">© 2025 부산어린이대공원. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <div id="gallery-modal" class="modal"></div>
+    <div id="video-modal" class="modal"></div>
+    <div id="news-modal" class="modal"></div>
+    <div id="reservation-modal" class="modal"></div>
+
+    <script>
+        const header = document.querySelector('.header');
+    
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });   
+    </script>
+</body>
+</html>
