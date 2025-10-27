@@ -478,15 +478,11 @@ function printNews() {
 // START: 수정된 Language toggle functionality
 // ===================================================================
 function initLanguageToggle() {
-    console.log("Attempting to initialize language toggle..."); // <-- Add this line
     const langBtn = document.getElementById('lang-btn');
-    console.log("Language button found:", langBtn); // <-- Add this line
-    if (!langBtn) {
-        console.error("Language button with id 'lang-btn' NOT FOUND!"); // Added error log
-        return; // 버튼이 없으면 함수 종료
-    }
-    
-    let currentLang = 'ko';
+    if (!langBtn) return; // 버튼 없는 페이지 고려
+
+    // Load saved language preference from localStorage
+    let currentLang = localStorage.getItem('preferred-language') || 'ko';
 
     const changeLanguage = () => {
         const pageTitle = document.getElementById('page-title');
@@ -500,6 +496,9 @@ function initLanguageToggle() {
             }
         }
         langBtn.textContent = (currentLang === 'ko') ? 'EN' : 'KO';
+        
+        // Save language preference
+        localStorage.setItem('preferred-language', currentLang);
     };
 
     langBtn.addEventListener('click', () => {
@@ -573,4 +572,5 @@ style.textContent = `
 // document.head.appendChild(style); // CSS 파일로 옮기는 것을 권장하므로 주석 처리
 
 // 불필요한 DOMContentLoaded 리스너들 (맨 아래 있던 것들)은 삭제되었습니다.
+
 
